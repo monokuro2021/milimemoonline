@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ミリメモ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- スタート画面 -->
+<div id="start-screen" class="start-screen">
+  <div class="start-content">
+    <img src="./images/タイトル.png" alt="タイトル" class="title-image">
+    <div class="button-container">
+      <button id="broadcast-btn" class="broadcast-btn" onclick="startBroadcast()">配信開始</button>
+      <button id="online-btn" class="broadcast-btn online-btn" onclick="enterOnlineMode()">オンライン対戦</button>
+      <button id="start-btn" class="start-btn" onclick="startGame(event)" disabled>ゲームスタート</button>
+    </div>
+
+    <!-- オンライン対戦パネル -->
+    <div id="online-panel" class="online-panel hidden">
+      <div id="net-setup">
+        <button class="net-btn" id="btn-host">部屋を作る</button>
+        <div class="join-row">
+          <input id="join-code" maxlength="4" placeholder="コード" autocomplete="off">
+          <button class="net-btn" id="btn-join">部屋に入る</button>
+        </div>
+      </div>
+      <div id="net-wait" class="hidden">
+        <div class="room-code-note">このコードを相手に伝えてください</div>
+        <div id="room-code" class="room-code"></div>
+      </div>
+      <div id="net-msg" class="net-msg"></div>
+      <button class="net-btn net-back" id="btn-net-back">戻る</button>
+    </div>
+    
+    <!-- キャラクター選択（デコレーションカード形式） -->
+    <div class="character-selection-container player1-selection">
+      <div class="player-label">PLAYER 1</div>
+      <div class="character-selection-card">
+        <div class="decoration-card selection-card selection-left">
+          <div class="card-face card-front">
+            <div class="decoration-icon normal-face">
+              <img src="" alt="" class="decoration-image" id="player1-selection-image">
+            </div>
+          </div>
+          <div class="card-face card-back">
+            <div class="decoration-icon happy-face">
+              <img src="" alt="" class="decoration-image">
+            </div>
+          </div>
+          <div class="card-face card-sad">
+            <div class="decoration-icon sad-face">
+              <img src="" alt="" class="decoration-image">
+            </div>
+          </div>
+        </div>
+        <div class="character-controls">
+          <button class="nav-btn" onclick="prevCharacter(1)">◀</button>
+          <button class="decide-btn" onclick="decideCharacter(event, 1)">決定</button>
+          <button class="nav-btn" onclick="nextCharacter(1)">▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="character-selection-container player2-selection">
+      <div class="player-label">PLAYER 2</div>
+      <div class="character-selection-card">
+        <div class="decoration-card selection-card selection-right">
+          <div class="card-face card-front">
+            <div class="decoration-icon normal-face">
+              <img src="" alt="" class="decoration-image" id="player2-selection-image">
+            </div>
+          </div>
+          <div class="card-face card-back">
+            <div class="decoration-icon happy-face">
+              <img src="" alt="" class="decoration-image">
+            </div>
+          </div>
+          <div class="card-face card-sad">
+            <div class="decoration-icon sad-face">
+              <img src="" alt="" class="decoration-image">
+            </div>
+          </div>
+        </div>
+        <div class="character-controls">
+          <button class="nav-btn" onclick="prevCharacter(2)">◀</button>
+          <button class="decide-btn" onclick="decideCharacter(event, 2)">決定</button>
+          <button class="nav-btn" onclick="nextCharacter(2)">▶</button>
+        </div>
+      </div>
+    </div>
+      </div>
+</div>
+
+<!-- ゲームタイトル -->
+<div id="game-container" class="game-container" style="display: none;">
+  <!-- ゲームボード -->
+  <div id="board"></div>
+
+  <!-- デコレーションカード（左側中央） -->
+  <div class="decoration-card decoration-left-center">
+    <div class="card-face card-front">
+      <div class="decoration-icon normal-face">
+        <img src="" alt="" class="decoration-image">
+      </div>
+    </div>
+    <div class="card-face card-back">
+      <div class="decoration-icon happy-face">
+        <img src="" alt="" class="decoration-image">
+      </div>
+    </div>
+    <div class="card-face card-sad">
+      <div class="decoration-icon sad-face">
+        <img src="" alt="" class="decoration-image">
+      </div>
+    </div>
+  </div>
+
+  <!-- デコレーションカード（右側中央） -->
+  <div class="decoration-card decoration-right-center">
+    <div class="card-face card-front">
+      <div class="decoration-icon normal-face">
+        <img src="" alt="" class="decoration-image">
+      </div>
+    </div>
+    <div class="card-face card-back">
+      <div class="decoration-icon happy-face">
+        <img src="" alt="" class="decoration-image">
+      </div>
+    </div>
+    <div class="card-face card-sad">
+      <div class="decoration-icon sad-face">
+        <img src="" alt="" class="decoration-image">
+      </div>
+    </div>
+  </div>
+
+  <!-- Player 1 グループ（左下） -->
+  <div class="player-group player1-group">
+    <!-- Player 1 情報 -->
+    <div class="player-info player1-info">
+      <div class="player-header">
+        <div class="player-name" id="player1-name">甘狼このみ</div>
+        <div class="turn-indicator" id="player1-turn-indicator">▲</div>
+      </div>
+    </div>
+    
+    <!-- Player 1 スキル -->
+    <div class="player-skills player1-skills">
+      <button class="skill-btn" onclick="useSkill(1, 'block')">サイン</button>
+      <button class="skill-btn" onclick="useSkill(1, 'shuffle')">リミックス</button>
+      <button class="skill-btn" onclick="useSkill(1, 'extra')">アンコール</button>
+    </div>
+  </div>
+
+  <!-- Player 2 グループ（右下） -->
+  <div class="player-group player2-group">
+    <!-- Player 2 情報 -->
+    <div class="player-info player2-info">
+      <div class="player-header">
+        <div class="player-name" id="player2-name">音ノ乃のの</div>
+        <div class="turn-indicator" id="player2-turn-indicator">▲</div>
+      </div>
+    </div>
+    
+    <!-- Player 2 スキル -->
+    <div class="player-skills player2-skills">
+      <button class="skill-btn" onclick="useSkill(2, 'block')">サイン</button>
+      <button class="skill-btn" onclick="useSkill(2, 'shuffle')">リミックス</button>
+      <button class="skill-btn" onclick="useSkill(2, 'extra')">アンコール</button>
+    </div>
+  </div>
+</div>
+
+<!-- インフォメーションアイコン（上） -->
+<div class="info-icon-top" id="info-icon-top" onclick="toggleRules()">
+  ?
+</div>
+
+<!-- 音量アイコン（下） -->
+<div class="volume-icon" id="volume-icon" onclick="toggleVolumeBar()">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11 5L6 9H2v6h4l5 4V5z" fill="white" stroke="white" stroke-width="0.5"/>
+    <path d="M15.5 8.5c1.5 1.5 1.5 4 0 5.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <path d="M19 6c3 3 3 7 0 10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="11" cy="12" r="1.5" fill="white" opacity="0.8"/>
+  </svg>
+</div>
+
+<!-- ホームボタン（上） -->
+<div class="home-icon-top" id="home-icon-top" onclick="confirmGoHome()">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="9,22 9,12 15,12 15,22" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<!-- クレジットアイコン（下） -->
+<div class="credit-icon" id="credit-icon" onclick="showCredits()">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 3.5l2.73 5.53L21 9.77l-4.5 4.38L17.36 20 12 17.27 6.64 20 7.5 14.15 3 9.77l6.27-0.74L12 3.5z" fill="white"/>
+  </svg>
+</div>
+
+<!-- チャット欄（常に表示） -->
+<div class="chat-frame">
+  <div class="chat-content" id="chat-content"></div>
+</div>
+
+<!-- ホーム確認モーダル -->
+<div class="home-confirm-modal" id="home-confirm-modal">
+  <div class="home-confirm-content">
+    <div class="home-confirm-message">
+      <h3>配信を終了しますか？</h3>
+      <div class="home-confirm-buttons">
+        <button class="home-confirm-btn yes" onclick="goToHome()">はい</button>
+        <button class="home-confirm-btn no" onclick="closeHomeConfirm()">いいえ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- クレジット表示モーダル -->
+<div class="credit-modal" id="credit-modal">
+  <div class="credit-modal-content">
+    <div class="credit-modal-header">
+      <h3>クレジット</h3>
+      <button class="credit-modal-close" onclick="hideCredits()">×</button>
+    </div>
+    <div class="credit-modal-body">
+      <div class="credit-message">
+        <h2 style="text-align: center; font-size: 2.2em;">Thank you for playing!</h2>
+        <div style="text-align: center; margin-bottom: 10px;">
+          <img src="./images/ミリちゃん_H1.png" alt="ミリちゃん" style="max-width: 200px; height: auto;">
+        </div>
+        <p style="text-align: center; font-size: 1.2em; margin-bottom: 5px;">ゲーム制作：モノクロ</p>
+        <p style="text-align: center; font-size: 1.2em; margin-bottom: 0px;">イラスト：青と星</p>
+        <p style="text-align: center; font-size: 1.2em;"><br></p>
+        <p style="text-align: center; font-size: 1.2em;">※本作品は「ミリプロ」の二次創作作品です！</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="rule-modal" id="rule-modal">
+  <div class="rule-modal-content">
+    <button class="rule-modal-close" onclick="toggleRules()">×</button>
+    <div class="rule-modal-body">
+      <!-- ページ1: 遊び方 -->
+      <div class="rule-page active" id="rule-page-1">
+        <div class="rule-image-container">
+          <img src="./images/ミリメモ_遊び方.png" alt="ミリメモの遊び方" class="rule-image">
+        </div>
+      </div>
+      <!-- ページ2: プレイ環境 -->
+      <div class="rule-page" id="rule-page-2">
+        <div class="rule-image-container">
+          <img src="./images/ミリプロ_プレイ環境.png" alt="ミリプロのプレイ環境" class="rule-image">
+        </div>
+      </div>
+      <!-- ページ切り替えボタン -->
+      <div class="rule-pagination">
+        <button class="rule-page-btn active" id="page-btn-1" onclick="switchRulePage(1)">遊び方</button>
+        <button class="rule-page-btn" id="page-btn-2" onclick="switchRulePage(2)">プレイ環境</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 音量バー（非表示） -->
+<div class="volume-bar-container" id="volume-bar-container">
+  <div class="volume-bar-content">
+    <div class="volume-item">
+      <label for="bgm-slider-game" class="volume-label-game">音楽</label>
+      <input type="range" id="bgm-slider-game" class="volume-slider-game" min="0" max="100" value="50">
+      <span id="bgm-value-game" class="volume-value-game">50%</span>
+    </div>
+    <div class="volume-item">
+      <label for="sfx-slider-game" class="volume-label-game">効果音</label>
+      <input type="range" id="sfx-slider-game" class="volume-slider-game" min="0" max="100" value="50">
+      <span id="sfx-value-game" class="volume-value-game">50%</span>
+    </div>
+  </div>
+</div>
+
+<!-- アウトメッセージ -->
+<div id="out-message" class="out-message hidden">進捗はどうですか？<br><span style="font-size: 0.7em;">by ミリちゃん</span></div>
+
+<!-- ミリちゃん画像メッセージ -->
+<div id="miri-image-message" class="miri-image-message hidden">
+  <img src="./images/ミリちゃん_Y1.png" alt="ミリちゃん" class="miri-image">
+  <div class="miri-image-text">進捗はどうですか？　</div>
+</div>
+
+<!-- ゲットメッセージ -->
+<div id="get-message" class="get-message hidden"></div>
+
+<!-- 汎用メッセージ -->
+<div id="general-message" class="general-message hidden"></div>
+
+<!-- メッセージ表示中のオーバーレイ -->
+<div id="message-overlay" class="message-overlay"></div>
+
+<!-- スキル確認メッセージ -->
+<div id="skill-confirm" class="skill-confirm hidden">
+  <div class="skill-confirm-text"></div>
+  <div class="skill-confirm-buttons">
+    <button class="skill-confirm-btn ok-btn" onclick="confirmSkill(true)">OK</button>
+    <button class="skill-confirm-btn cancel-btn" onclick="confirmSkill(false)">キャンセル</button>
+  </div>
+</div>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

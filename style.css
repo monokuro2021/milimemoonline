@@ -1,0 +1,2663 @@
+@font-face {
+  font-family: 'Pixel';
+  src: url('./fonts/Pixel.woff2') format('woff2'),
+       url('./fonts/Pixel.woff') format('woff'),
+       url('./fonts/Pixel.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'cinecaption226';
+  src: url('./fonts/cinecaption226.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'utamin=hoshi0=20160902';
+  src: url('./fonts/utamin=hoshi0=20160902.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JF-Dot-K12';
+  src: url('./fonts/JF-Dot-K12.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'JF-Dot-Kaname12';
+  src: url('./fonts/JF-Dot-Kaname12.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* テキストや画像の選択を無効にする */
+* {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 画像の選択・ドラッグを無効にする */
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -moz-user-drag: none;
+  pointer-events: none;
+}
+
+/* ホームボタンとクレジットアイコンは選択可能に */
+.home-icon-top,
+.credit-icon {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
+
+/* スタート画面 */
+.start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./images/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.start-content {
+  text-align: center;
+  background: white;
+  padding: 5%;
+  border-radius: 9.5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 3px solid white;
+  width: 35%;
+  height: 30%;
+}
+
+.game-title {
+  font-size: 70px;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  margin: 0 0 15px 0;
+  text-shadow: none;
+  padding: 20px 20px;
+  border: none;
+  border-radius: 15px;
+  background-color: transparent;
+  display: inline-block;
+  text-align: center;
+  transform: scaleY(1.2);
+  background: linear-gradient(
+    to right,
+    #8b9dff 0%,      /* ミの開始 */
+    #a78bfa 25%,     /* ミの終了/リの開始 */
+    #8b9dff 25%,     /* リの開始 */
+    #a78bfa 50%,     /* リの終了/メの開始 */
+    #8b9dff 50%,     /* メの開始 */
+    #a78bfa 75%,     /* メの終了/モの開始 */
+    #8b9dff 75%,     /* モの開始 */
+    #a78bfa 100%     /* モの終了 */
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.game-subtitle {
+  font-size: 28px;
+  font-weight: normal;
+  font-family: 'cinecaption226', monospace;
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  margin: 0 0 30px 0;
+  text-align: center;
+  letter-spacing: 2px;
+  clear: both;
+}
+
+.title-card {
+  display: block;
+  margin: 20px auto;
+  max-width: 150px;
+  height: auto;
+  text-align: center;
+  float: left;
+  margin-right: 20px;
+}
+
+.game-description {
+  font-size: 18px;
+  font-family: 'cinecaption226', monospace;
+  color: #666;
+  margin: 0 0 35px 0;
+}
+
+.start-btn {
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+  color: white;
+  border: none;
+  padding: 18px 45px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  border-radius: 9.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.start-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.start-btn:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.title-image {
+  display: block;
+  margin: 0 auto 30px auto;
+  max-width: 400px;
+  height: auto;
+  text-align: center;
+}
+
+.button-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.broadcast-btn {
+  background: linear-gradient(to bottom, #ff6b6b 0%, #ff8e53 100%);
+  color: white;
+  border: none;
+  padding: 18px 45px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'JF-Dot-Kaname12', monospace;
+  border-radius: 9.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  letter-spacing: 3px;
+}
+
+.broadcast-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.broadcast-btn:active {
+  transform: translateY(0);
+}
+
+.volume-control {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.volume-label {
+  font-size: 18px;
+  font-family: 'cinecaption226', monospace;
+  color: #333;
+  font-weight: bold;
+}
+
+.volume-slider {
+  width: 200px;
+  height: 8px;
+  background: #ddd;
+  border-radius: 9.5px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #667eea;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #667eea;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.volume-value {
+  font-size: 16px;
+  font-family: 'cinecaption226', monospace;
+  color: #333;
+  font-weight: bold;
+  min-width: 40px;
+}
+
+body {
+  margin: 0;
+  background-image: url('./images/back.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: black;
+  font-family: 'cinecaption226', monospace;
+  text-align: center;
+  overflow: hidden;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+#game-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.player-bottom-left {
+  position: absolute;
+  bottom: 15%;
+  left: 5.65%;
+}
+
+.player-bottom-right {
+  position: absolute;
+  bottom: 15%;
+  right: 5.65%;
+}
+
+.player-top-left {
+  position: absolute;
+  bottom: 3.2%;
+  left: 5.75%;
+}
+
+.player-top-right {
+  position: absolute;
+  bottom: 3.2%;
+  right: 5.75%;
+}
+
+.player-info {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 9.5px;
+  padding: 25px 5px 5px 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
+  width: 15%;
+  min-width: 150px;
+  max-width: 200px;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.player-skills {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  transition: all 0.3s ease;
+  width: 15%;
+  min-width: 150px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-skills .skill-btn {
+  /* スキルボタン - 強制設定 */
+  width: 75px !important;
+  height: 50px !important;
+  border-radius: 9.5px !important;
+  background: white !important;
+  color: #667eea !important;
+  border: 2px solid #667eea !important;
+  padding: 5px 7px !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  font-size: 0.8vw !important;
+  font-weight: bold !important;
+  font-family: 'cinecaption226', monospace !important;
+  text-shadow: none !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 1px !important;
+  box-sizing: border-box !important;
+  line-height: 1.2 !important;
+  min-width: 75px !important;
+  max-width: 75px !important;
+  min-height: 50px !important;
+  max-height: 50px !important;
+  flex-shrink: 0 !important;
+}
+
+.player-info.active-turn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  box-shadow: 0 0 0 4px #ffff66, 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.player-skills.active-turn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.player-name {
+  font-size: 2vw;
+  font-weight: normal;
+  font-family: 'cinecaption226', monospace;
+  color: #000000;
+  letter-spacing: 0.1vw;
+  text-align: center;
+  width: 100%;
+}
+
+.turn-indicator {
+  font-size: 1.5vw;
+  color: #ff0000;
+  margin-left: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.turn-indicator.active {
+  opacity: 1;
+}
+
+
+.player-score {
+  font-size: 2vw;
+  margin-bottom: 0%;
+  color: #000000;
+  font-family: 'cinecaption226', monospace;
+  letter-spacing: 0.1vw;
+  font-weight: normal;
+  text-align: center;
+  width: 100%;
+}
+
+.player-score::before {
+  content: attr(data-number);
+  font-size: clamp(18px, 2.4vw, 32px);
+  font-weight: bold;
+  color: #000000;
+  font-family: 'cinecaption226', monospace;
+  letter-spacing: 1px;
+  display: block;
+}
+
+.player1 {
+  border-left: none;
+}
+
+.player2 {
+  border-left: none;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(5.4vw, 1fr));
+  gap: 2.0%;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  top: 38.8%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 600px;
+  perspective: 1000px;
+}
+
+.card {
+  width: 100%;
+  height: 0;
+  padding-bottom: 115%;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+  transform-origin: 50% 50%;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.card.flipped {
+  transform: rotateY(180deg) translateX(-25px);
+}
+
+.card.flipped:hover {
+  transform: rotateY(180deg) translateX(-25px) translateY(-3px);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 9.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(14px, 1.8vw, 24px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ffffff;
+}
+
+.card-front {
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%) !important;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  background: #e8f4f8;
+  color: black;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+/* 1カードの画像設定 */
+.card-back[data-number="1"] {
+  background: #c0edf0 url("./images/甘狼このみ_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 2カードの画像設定 */
+.card-back[data-number="2"] {
+  background: #b4b1df url("./images/音ノ乃のの_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 3カードの画像設定 */
+.card-back[data-number="3"] {
+  background: #b2405d url("./images/あくび・でもんすぺーど_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 4カードの画像設定 */
+.card-back[data-number="4"] {
+  background: #ffdf5c url("./images/音ノ瀬らこ_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 5カードの画像設定 */
+.card-back[data-number="5"] {
+  background: #9BB7E9 url("./images/ゆらぎゆら_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 6カードの画像設定 */
+.card-back[data-number="6"] {
+  background: #ffab57 url("./images/小廻こま_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 7カードの画像設定 */
+.card-back[data-number="7"] {
+  background: #63a4a4 url("./images/雨夜リズ_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 8カードの画像設定 */
+.card-back[data-number="8"] {
+  background: #DFB5FF url("./images/眠雲ツクリ_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 9カードの画像設定 */
+.card-back[data-number="9"] {
+  background: #F5B7B7 url("./images/虹深゜ぬふ_マーク.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* 10カードの背景色（ミリちゃん） */
+.card-back[data-number="10"] {
+  background: #a78bfa url("./images/ミリちゃん_N.png") no-repeat center;
+  background-size: 100%;
+}
+
+/* カード内の画像選択・ドラッグ無効化 */
+.card-back img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+.position-number {
+  font-family: 'cinecaption226', monospace;
+  font-size: 3.5vw;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.card.open {
+  transform: rotateY(180deg) translateX(-4px);
+}
+
+.card.matched {
+  opacity: 0 !important;
+  transform: scale(0) rotateY(180deg) !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transition: all 0.5s ease;
+}
+
+.card.matched .card-front,
+.card.matched .card-back {
+  opacity: 0 !important;
+  transform: scale(0) !important;
+  visibility: hidden !important;
+}
+
+.player-skills {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.skill-btn {
+  /* スキルボタン - 基本スタイル（強制） */
+  width: 12% !important;
+  height: 8% !important;
+  border-radius: 9.5px !important;
+  background: white !important;
+  color: #667eea !important;
+  border: 2px solid #667eea !important;
+  padding: 1% 1.5% !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  font-size: 1.5vw !important;
+  font-weight: bold !important;
+  font-family: 'cinecaption226', monospace !important;
+  text-shadow: none !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 1px !important;
+  box-sizing: border-box !important;
+  line-height: 1.2 !important;
+  min-width: 75px !important;
+  max-width: 75px !important;
+  min-height: 50px !important;
+  max-height: 50px !important;
+  flex-shrink: 0 !important;
+}
+
+.skill-icon {
+  font-size: 2.5vw;
+  line-height: 1;
+}
+
+.skill-text {
+  font-size: 1.5vw;
+  line-height: 1;
+}
+
+.skill-btn:hover {
+  background: #f0f0f0 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.skill-btn:disabled {
+  background: #f5f5f5 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  color: #999999 !important;
+  border: 2px solid #cccccc !important;
+}
+
+.skill-btn:disabled:hover {
+  background: #f5f5f5 !important;
+  transform: none;
+  box-shadow: none;
+}
+
+.player1 .skill-btn {
+  background: white !important;
+}
+
+.player1 .skill-btn:hover {
+  background: #f0f0f0 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.player2 .skill-btn {
+  background: white !important;
+}
+
+.player2 .skill-btn:hover {
+  background: #f0f0f0 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* スキルボタンの状態スタイル */
+.skill-btn.skill-used {
+  background: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border: 1px solid #999999 !important;
+}
+
+.skill-btn.skill-pending {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.skill-btn.skill-used:hover {
+  background: #cccccc !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.block-mark {
+  position: absolute;
+  top: 49.95%;
+  left: 51.9%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: url("./images/ミリちゃん_H1.png") no-repeat center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ゲットメッセージ */
+.get-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4vw;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  color: #ff6b35;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3% 6%;
+  border-radius: 9.5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  animation: getPopup 2s ease-in-out;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@keyframes getPopup {
+  0% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  20% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+  40% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  80% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+/* アウトメッセージ */
+.out-message {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  color: #8b9dff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px 40px;
+  border-radius: 9.5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  animation: outPulse 2s ease-in-out;
+  pointer-events: none;
+  text-align: center;
+  white-space: pre-line;
+}
+
+@keyframes outPulse {
+  0% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  20% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  80% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+
+/* ミリちゃん画像メッセージ */
+.miri-image-message {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  animation: getPopup 2s ease-in-out;
+  pointer-events: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.miri-image {
+  width: 400px;
+  height: auto;
+  max-width: 80vw;
+  max-height: 60vh;
+  object-fit: contain;
+}
+
+.miri-image-text {
+  font-size: 3.5vw;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  color: #7c3aed;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 3% 6%;
+  border-radius: 9.5px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+
+.hidden {
+  display: none;
+}
+
+/* 汎用メッセージ */
+.general-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  color: #333;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  animation: none; /* アニメーションを無効化 */
+  pointer-events: none;
+  text-align: center;
+  border: 2px solid #667eea;
+  white-space: pre-line; /* 改行を有効にする */
+}
+
+/* メッセージ表示中のオーバーレイ */
+.message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+
+@keyframes messagePulse {
+  0% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  20% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  80% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+/* スキル確認メッセージ */
+.skill-confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1003;
+  text-align: center;
+  border: 2px solid #667eea;
+  min-width: 300px;
+}
+
+.skill-confirm-text {
+  font-size: 1.6em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.skill-confirm-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.skill-confirm-btn {
+  background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 9.5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.skill-confirm-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cancel-btn {
+  background: linear-gradient(145deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.cancel-btn:hover {
+  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+.broadcast-btn {
+  background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 9.5px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+.broadcast-btn:hover:not(:disabled) {
+  background: linear-gradient(145deg, #5a67d8 0%, #6c5ce7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.broadcast-btn:disabled {
+  background: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.start-btn {
+  background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 9.5px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+/* プレイヤーグループスタイル */
+.player-group {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 9.5px;
+  padding: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 2px solid #8b5cf6;
+  width: 20.8%;
+  height: 20vh;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+/* プレイヤー情報スタイル（グループ内用） */
+.player-group .player-info {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  min-width: auto;
+  max-width: none;
+  transition: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.player1-group {
+  bottom: 1.7%;
+  left: 12.8%;
+  transform: translateX(-50%);
+}
+
+.player2-group {
+  bottom: 1.7%;
+  left: 87.5%;
+  transform: translateX(-50%);
+}
+
+.player-group.active-turn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #8b5cf6;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(-50%) scale(1.02);
+}
+
+/* 手番表示の赤い三角形▼ */
+.player-group.active-turn::before {
+  content: '▼';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ff0000;
+  font-size: 4vh;
+  font-weight: bold;
+  z-index: 100;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* プレイヤー情報スタイル（グループ内用） */
+.player-group .player-info {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+  min-width: auto;
+  max-width: none;
+  transition: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* プレイヤー1スコアメッセージスタイル */
+.player1-score-message {
+  position: fixed;
+  top: 12%;
+  left: 13.8%;
+  color: #ffd700;
+  font-size: clamp(24px, 3.5vw, 42px);
+  font-weight: bold;
+  font-family: 'JF-Dot-K12', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+/* プレイヤー2スコアメッセージスタイル */
+.player2-score-message {
+  position: fixed;
+  top: 12%;
+  right: 12.8%;
+  color: #ffd700;
+  font-size: clamp(24px, 3.5vw, 42px);
+  font-weight: bold;
+  font-family: 'JF-Dot-K12', monospace;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translate(50%, -50%);
+  z-index: 1000;
+}
+
+/* プレイヤースキルスタイル（グループ内用） */
+.player-group .player-skills {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  transition: none;
+  width: 100%;
+  min-width: auto;
+  max-width: none;
+  display: flex;
+  flex-direction: row;
+  gap: 1.5%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.player-group .player-skills .skill-btn {
+  /* スキルボタン - 強制設定 */
+  width: 6% !important;
+  height: 2.5% !important;
+  border-radius: 9.5px !important;
+  background: white !important;
+  color: #667eea !important;
+  border: 2px solid #667eea !important;
+  padding: 0.5% 0.7% !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  font-size: 0.8vw !important;
+  font-weight: bold !important;
+  font-family: 'cinecaption226', monospace !important;
+  text-shadow: none !important;
+  letter-spacing: 0.05vw !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 0.1% !important;
+  box-sizing: border-box !important;
+  line-height: 1.2 !important;
+  flex-shrink: 0 !important;
+}
+
+.player-group .player-skills .skill-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.player-group .player-skills .skill-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.player-group .player-skills .skill-btn:disabled {
+  background: #e0e0e0 !important;
+  color: #999 !important;
+  border-color: #ccc !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* キャラクター画像スタイル */
+.player-character {
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.player1-character {
+  left: 13%;  /* 12%から13%にほんの少し右移動 */
+}
+
+.character-image {
+  max-width: min(2000px, 60vw);  /* 2000pxまたは画面幅60%の小さい方 */
+  max-height: min(2000px, 120vh);  /* 2000pxまたは画面高さ120%の小さい方 */
+  width: auto;
+  height: auto;
+  border-radius: 0;  /* 角丸を削除 */
+  box-shadow: none;  /* 影を削除 */
+  border: none;  /* 枠線を削除 */
+  background: transparent;  /* 背景を透明に */
+  filter: none;  /* フィルターを削除 */
+}
+
+/* シンプルなキャラクターカードスタイル */
+.character-simple-card {
+  width: 100%;
+  height: 0;
+  padding-bottom: 120%;
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  transform-origin: 50% 50%;
+}
+
+.character-simple-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.character-simple-front {
+  transform: rotateY(0deg);
+}
+
+.character-simple-back {
+  transform: rotateY(180deg);
+}
+
+.character-simple-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* デコレーションカードスタイル */
+.decoration-card {
+  width: 100%;
+  height: 0;
+  padding-bottom: 115%;
+  position: relative;
+  cursor: default;  /* クリック不可に */
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  transform-origin: 50% 50%;
+  pointer-events: none;  /* クリックイベントを無効化 */
+}
+
+.decoration-left-center {
+  position: absolute;
+  top: 45%;
+  left: 2.3%;
+  z-index: 50;
+  width: 20.8%;
+  height: 0;
+  padding-bottom: 23.82vw;
+  transform: translateY(-50%);
+}
+
+.decoration-right-center {
+  position: absolute;
+  top: 45%;
+  right: 2.3%;
+  z-index: 50;
+  width: 20.8%;
+  height: 0;
+  padding-bottom: 23.82vw;
+  transform: translateY(-50%);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: clamp(16px, 2.1vw, 28px);
+}
+
+.card .card-front {
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%) !important;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+}
+
+.card-back[data-number="1"] {
+  background: #c0edf0 url('./images/1カード.png') !important;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="2"] {
+  background: #b4b1df !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="3"] {
+  background: #b2405d !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="4"] {
+  background: #ffdf5c !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="5"] {
+  background: #9BB7E9 !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="6"] {
+  background: #ffab57 !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="7"] {
+  background: #63a4a4 !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="8"] {
+  background: #DFB5FF !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="9"] {
+  background: #F5B7B7 !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+.card-back[data-number="10"] {
+  background: #7c3aed !important;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+}
+
+
+
+
+
+.decoration-card.flipped {
+  transform: rotateY(180deg) translateY(-50%);
+}
+
+.decoration-card .card-front {
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+  transform: rotateY(0deg);
+}
+
+.decoration-card .card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+}
+
+.decoration-card .card-sad {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 9.5px;
+  display: none; /* 初期状態では非表示 */
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(14px, 1.8vw, 24px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ffffff;
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+  transform: rotateY(180deg);
+}
+
+.decoration-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8vw;
+  border-radius: 9.5px;
+  transform: translateY(-3%);
+}
+
+/* プレイヤー1（このみ）の画像位置 */
+.decoration-left-center .decoration-image {
+  width: 103%;
+  height: 103%;
+  object-fit: contain;  /* 画像全体が見えるように */
+  border-radius: 9.5px;
+  transform: translateY(2px) translateX(-1px); /* 中央に */
+}
+
+.decoration-left-center .card-sad .decoration-image {
+  transform: translateY(2px) translateX(-8px); /* 泣き顔の時は少し左に */
+}
+
+.decoration-left-center .card-back .decoration-image {
+  width: 101%;
+  height: 101%;
+  transform: translateY(8.5px) translateX(0); /* 嬉しい時は少し下に、そしてほんの少し右に */
+}
+
+/* プレイヤー2（のの）の画像位置 */
+.decoration-right-center .decoration-image {
+  width: 103%;
+  height: 103%;
+  object-fit: contain;  /* 画像全体が見えるように */
+  border-radius: 9.5px;
+  transform: translateY(-5px) translateX(-7px); /* 中央に */
+}
+
+.decoration-right-center .card-sad .decoration-image {
+  transform: translateY(-2px) translateX(-12px); /* 泣き顔の時は少し左に */
+}
+
+.decoration-right-center .card-back .decoration-image {
+  width: 101%;
+  height: 101%;
+  transform: translateY(5px) translateX(-5px); /* 嬉しい時は少し下に、そしてほんの少し右に */
+}
+
+/* チャット欄スタイル */
+.chat-frame {
+  position: absolute;
+  bottom: 1.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 23.82vw;
+  height: 20vh;
+  background: rgba(120, 150, 255, 0.7);
+  border-radius: 9.5px;
+  border: 2px solid rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: visible;
+  display: block;
+  z-index: 1500;
+}
+
+.chat-content {
+  height: 100%;
+  padding: 0.5%;
+  overflow: hidden;
+  background: transparent;
+  position: relative;
+  display: block;
+  min-height: 5%;
+}
+
+/* コメント時間スタイル */
+.comment-time {
+  color: #ffffff;
+  font-size: clamp(10px, 1vw, 14px);
+  margin-right: 6px;
+  font-family: 'cinecaption226', monospace;
+  flex-shrink: 0;
+  min-width: 50px;
+}
+
+/* コメントテキストスタイル */
+.comment-text {
+  color: #ffffff;
+  font-weight: 500;
+  font-family: 'cinecaption226', monospace;
+  font-size: clamp(12px, 1.3vw, 17px);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: commentSlide 0.5s ease-out;
+}
+
+/* インフォメーションアイコン（上） */
+.info-icon-top {
+  position: absolute;
+  bottom: calc(3% + 11vh);
+  right: calc(29.4% + 0.7vw);
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  background: rgba(120, 150, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 1);
+  border-radius: 9.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: bold;
+  color: white;
+  font-family: sans-serif;
+}
+
+/* 音量アイコン（下） */
+.volume-icon {
+  position: absolute;
+  bottom: 3.05%;
+  left: calc(29.4% + 0.7vw);
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  background: rgba(120, 150, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 1);
+  border-radius: 9.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1501;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.volume-icon:hover {
+  background: rgba(120, 150, 255, 0.9);
+  transform: scale(1.05);
+}
+
+.volume-icon:active {
+  transform: translateY(0);
+}
+
+.volume-icon.active {
+  background: rgba(120, 150, 255, 0.9);
+}
+
+.home-icon-top:hover {
+  background: rgba(120, 150, 255, 0.9);
+  transform: scale(1.05);
+}
+
+.info-icon-top:hover {
+  background: rgba(120, 150, 255, 0.9);
+  transform: scale(1.05);
+}
+
+/* ホームボタン（上） */
+.home-icon-top {
+  position: absolute;
+  bottom: calc(3% + 11vh);
+  left: calc(29.4% + 0.7vw);
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  background: rgba(120, 150, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 1);
+  border-radius: 9.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* ルールアイコン（下） */
+.rule-icon {
+  position: absolute;
+  bottom: 3.05%;
+  left: calc(29.4% + 0.7vw);
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  background: rgba(120, 150, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 1);
+  border-radius: 9.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1501;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.rule-icon:hover {
+  background: rgba(120, 150, 255, 0.9);
+  transform: scale(1.05);
+}
+
+.rule-icon:active {
+  transform: translateY(0);
+}
+
+.rule-icon.active {
+  background: rgba(120, 150, 255, 0.9);
+}
+
+/* クレジットアイコン（下） */
+.credit-icon {
+  position: absolute;
+  bottom: 3.05%;
+  right: calc(29.4% + 0.7vw);
+  width: clamp(30px, 3vw, 40px);
+  height: clamp(30px, 3vw, 40px);
+  background: rgba(120, 150, 255, 0.7);
+  border: 2px solid rgba(255, 255, 255, 1);
+  border-radius: 9.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1501;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.credit-icon:hover {
+  background: rgba(120, 150, 255, 0.9);
+  transform: scale(1.05);
+}
+
+.credit-icon:active {
+  transform: translateY(0);
+}
+
+.credit-icon.active {
+  background: rgba(120, 150, 255, 0.9);
+}
+
+/* ホーム確認モーダル */
+.home-confirm-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.home-confirm-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.home-confirm-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  border: 3px solid white;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+  text-align: center;
+  min-width: 300px;
+}
+
+.home-confirm-modal.show .home-confirm-content {
+  transform: scale(1);
+}
+
+.home-confirm-message h3 {
+  margin: 0 0 25px 0;
+  font-size: 24px;
+  font-family: 'cinecaption226', monospace;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.home-confirm-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.home-confirm-btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 9.5px;
+  font-size: 18px;
+  font-family: 'cinecaption226', monospace;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.home-confirm-btn.yes {
+  background: #667eea;
+  color: white;
+}
+
+.home-confirm-btn.yes:hover {
+  background: #5a6fd8;
+  transform: scale(1.05);
+}
+
+.home-confirm-btn.no {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.home-confirm-btn.no:hover {
+  background: #d0d0d0;
+  transform: scale(1.05);
+}
+
+/* クレジットモーダル */
+.credit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.credit-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.credit-modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  border: 3px solid white;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+.credit-modal.show .credit-modal-content {
+  transform: scale(1);
+}
+
+.credit-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px 15px;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.credit-modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-family: 'cinecaption226', monospace;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.credit-modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #667eea;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.credit-modal-close:hover {
+  background: rgba(102, 126, 234, 0.1);
+  transform: scale(1.1);
+}
+
+.credit-modal-body {
+  padding: 20px 25px 25px;
+}
+
+.credit-message {
+  text-align: center;
+}
+
+.credit-message h2 {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  font-family: 'cinecaption226', monospace;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.credit-message p {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'cinecaption226', monospace;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ルールモーダル */
+.rule-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.rule-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rule-modal-content {
+  background: transparent;
+  border-radius: 15px;
+  border: none;
+  max-width: 900px;
+  width: 90%;
+  max-height: 95vh;
+  overflow-y: auto;
+  box-shadow: none;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.rule-modal.show .rule-modal-content {
+  transform: scale(1);
+}
+
+.rule-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 50px;
+  color: #7b6ff2;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  text-shadow: 0 0 3px white, 0 0 6px white, 0 0 9px white;
+}
+
+.rule-modal-body {
+  padding: 20px;
+}
+
+.rule-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.rule-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  border: 5px solid white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.rule-modal-close:hover {
+  background: none;
+  transform: scale(1.1);
+}
+
+.rule-modal-body {
+  padding: 20px 25px 25px;
+}
+
+.rule-modal-body h4 {
+  margin: 20px 0 10px 0;
+  font-size: 18px;
+  font-family: 'cinecaption226', monospace;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.rule-modal-body h4:first-child {
+  margin-top: 0;
+}
+
+.rule-modal-body ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.rule-modal-body li {
+  margin: 8px 0;
+  font-size: 14px;
+  font-family: 'cinecaption226', monospace;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* 音量バーコンテナ */
+.volume-bar-container {
+  position: absolute;
+  bottom: calc(3.05% + 55px);
+  left: calc(29.4% + 10px - 80px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 255, 0.95) 100%);
+  border: 2px solid rgba(120, 150, 255, 0.8);
+  border-radius: 9.5px;
+  padding: 16px 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1502;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(15px);
+  min-width: 200px;
+}
+
+.volume-bar-container.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.volume-bar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.volume-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.volume-label-game {
+  min-width: 45px;
+  text-align: left;
+  font-size: 13px;
+  font-family: 'cinecaption226', monospace;
+  color: #333;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.volume-slider-game {
+  width: 90px;
+  height: 6px;
+  background: linear-gradient(to right, #e0e0e0 0%, #f0f0f0 100%);
+  border-radius: 9.5px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid rgba(120, 150, 255, 0.3);
+}
+
+.volume-slider-game::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  border: 2px solid white;
+  transition: all 0.2s ease;
+}
+
+.volume-slider-game::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.volume-value-game {
+  font-size: 12px;
+  font-family: 'cinecaption226', monospace;
+  color: #333;
+  font-weight: 600;
+  min-width: 35px;
+  white-space: nowrap;
+  text-align: right;
+}
+
+/* 強制スキルボタン正方形化 - リセット済み */
+/* 新しいスタイルを後で追加 */
+
+@keyframes commentSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* プレイヤー1キャラクター選択（左端） */
+.player1-character-selection {
+  position: absolute;
+  left: 3%;
+  top: 34%;
+  transform: translateY(-50%);
+  width: 20%;
+  height: 20%;
+  padding: 15px;
+  display: none;
+}
+
+.character-selection-container {
+  position: relative;
+}
+
+
+.player-label {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #FFFF00;
+  font-family: 'cinecaption226', monospace;
+  white-space: nowrap;
+}
+
+.player2-character-selection {
+  position: absolute;
+  right: 3%;
+  top: 34%;
+  transform: translateY(-50%);
+  width: 20%;
+  height: 20%;
+  padding: 15px;
+  display: none;
+}
+
+.player1-character-selection h3,
+.player2-character-selection h3 {
+  color: #fff;
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-family: 'cinecaption226', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.character-message {
+  color: #ffeb3b;
+  font-size: 1.2em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-family: 'cinecaption226', monospace;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.character-grid-small {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 30px;
+}
+
+.character-btn-small {
+  border: 1px solid #000;
+  border-radius: 9.5px;
+  padding: 2% 1%;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.7em;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  font-family: 'cinecaption226', monospace;
+}
+
+/* キャラクター1の色（甘狼このみ） */
+.char-color-1 {
+  background: #c0edf0;
+}
+
+/* キャラクター2の色（音ノ乃のの） */
+.char-color-2 {
+  background: #b4b1df;
+}
+
+/* キャラクター3の色（あくび・でもんすぺーど） */
+.char-color-3 {
+  background: #b2405d;
+}
+
+/* キャラクター4の色（音ノ瀬らこ） */
+.char-color-4 {
+  background: #ffdf5c;
+}
+
+/* キャラクター5の色（ゆらぎゆら） */
+.char-color-5 {
+  background: #9BB7E9;
+}
+
+/* キャラクター6の色（小廻こま） */
+.char-color-6 {
+  background: #ffab57;
+}
+
+/* キャラクター7の色（雨夜リズ） */
+.char-color-7 {
+  background: #63a4a4;
+}
+
+/* キャラクター8の色（眠雲ツクリ） */
+.char-color-8 {
+  background: #DFB5FF;
+}
+
+/* キャラクター9の色（虹深゜ぬふ） */
+.char-color-9 {
+  background: #F5B7B7;
+}
+
+.character-btn-small:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.character-btn-small.selected {
+  border: 2px solid #fff;
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.5);
+}
+
+/* プレイヤー名の中央揃え */
+.player-name {
+  text-align: center !important;
+  width: 100% !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+.player-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+/* キャラクター選択コンテナ */
+.character-selection-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.player1-selection {
+  position: absolute;
+  top: 44.5%;
+  left: 1%;
+  z-index: 50;
+  width: 21%;
+  height: 0;
+  padding-bottom: 24.05vw;
+  transform: translateY(-50%);
+}
+
+.player2-selection {
+  position: absolute;
+  top: 44.5%;
+  right: 1%;
+  z-index: 50;
+  width: 21%;
+  height: 0;
+  padding-bottom: 24.05vw;
+  transform: translateY(-50%);
+}
+
+.character-selection-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 0;
+  padding-bottom: 114.5%;
+  position: relative;
+}
+
+.selection-card {
+  width: 100%;
+  height: 0;
+  padding-bottom: 115%;
+  position: relative;
+  cursor: default;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.selection-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.selection-card .card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  font-size: clamp(16px, 2.1vw, 28px);
+}
+
+.selection-card .card-front {
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+  transform: rotateY(0deg);
+}
+
+.selection-card .card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+}
+
+.selection-card .card-sad {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 9.5px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(14px, 1.8vw, 24px);
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid #ffffff;
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+  transform: rotateY(180deg);
+}
+
+.selection-card .decoration-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8vw;
+  border-radius: 9.5px;
+  transform: translateY(-3%);
+}
+
+.selection-left .decoration-image {
+  width: 103%;
+  height: 103%;
+  object-fit: contain;
+  border-radius: 9.5px;
+  transform: translateY(2px) translateX(-1px);
+}
+
+.selection-left .card-sad .decoration-image {
+  transform: translateY(2px) translateX(-8px);
+}
+
+.selection-left .card-back .decoration-image {
+  width: 101%;
+  height: 101%;
+  transform: translateY(8.5px) translateX(0);
+}
+
+.selection-right .decoration-image {
+  width: 103%;
+  height: 103%;
+  object-fit: contain;
+  border-radius: 9.5px;
+  transform: translateY(-5px) translateX(-7px);
+}
+
+.selection-right .card-sad .decoration-image {
+  transform: translateY(-2px) translateX(-12px);
+}
+
+.selection-right .card-back .decoration-image {
+  width: 101%;
+  height: 101%;
+  transform: translateY(5px) translateX(-5px);
+}
+
+.character-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.nav-btn {
+  background: linear-gradient(to bottom, #8b9dff 0%, #a78bfa 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 9.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.decide-btn {
+  background: linear-gradient(to bottom, #ff6b6b 0%, #ff8e53 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 9.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: 'cinecaption226', monospace;
+}
+
+.decide-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.decide-btn:active {
+  background: linear-gradient(to bottom, #28a745 0%, #20c997 100%);
+}
+
+.decide-btn.decided {
+  background: linear-gradient(to bottom, #28a745 0%, #20c997 100%);
+}
+
+/* ルールモーダルのページ切り替え */
+.rule-page {
+  display: none;
+}
+
+.rule-page.active {
+  display: block;
+}
+
+.rule-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.rule-page-btn {
+  padding: 12px 28px;
+  border: 2px solid #667eea;
+  background: #667eea;
+  color: white;
+  border-radius: 9.5px;
+  cursor: pointer;
+  font-family: 'cinecaption226', monospace;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.rule-page-btn:hover {
+  background: rgba(102, 126, 234, 0.8);
+}
+
+.rule-page-btn.active {
+  background: white;
+  color: #667eea;
+}
+
+
+/* ============ �I�����C���ΐ� ============ */
+.online-btn {
+  background: linear-gradient(to bottom, #4facfe 0%, #38f9d7 100%) !important;
+  letter-spacing: 2px;
+}
+
+.online-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.online-panel {
+  position: fixed;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border: 3px solid #8b9dff;
+  border-radius: 9.5px;
+  padding: 14px 26px;
+  z-index: 1002;
+  text-align: center;
+  font-family: 'cinecaption226', monospace;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
+}
+
+#net-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.net-btn {
+  background: linear-gradient(145deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 9.5px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'cinecaption226', monospace;
+  transition: all 0.3s ease;
+}
+
+.net-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.join-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+#join-code {
+  width: 5em;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  border: 2px solid #8b9dff;
+  border-radius: 9.5px;
+  padding: 6px 8px;
+  font-family: 'cinecaption226', monospace;
+}
+
+.room-code-note {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.room-code {
+  font-size: 42px;
+  font-weight: bold;
+  letter-spacing: 10px;
+  color: #667eea;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+  padding-left: 10px;
+}
+
+.net-msg {
+  min-height: 1.4em;
+  margin-top: 8px;
+  color: #555;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.net-back {
+  margin-top: 8px;
+  font-size: 14px;
+  padding: 6px 20px;
+}
+
+/* �I�����C���ΐ펞�̎������v���C���[�\�� */
+.player-group.me .player-name::after {
+  content: '�i���Ȃ��j';
+  color: #ff8e53;
+  font-size: 0.55em;
+}
